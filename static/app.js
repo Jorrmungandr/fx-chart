@@ -1,40 +1,33 @@
-const createChart = () => {
+let canvas = document.querySelector('#chartContainer');
+let context = canvas.getContext('2d');
+let guide = 0;
+let newHeight = 0;
+let first = false;
+let color = '';
 
-  let guide = 400;
-  let left = 0;
-  let color = '';
-  let newHeight = 0;
-  let newColor = '';
-  let first = false;
+context.fillStyle = "#FF0000";
 
-  for (let i = 0; i < 100; i++) {
-    let randomHeight = Math.floor(Math.random() * 40 + 10);
+const createGraph = () => {
+  for (let i = 10; i < 800; i += 12) {
+    let randomHeight = Math.floor(Math.random() * 30 + 10)
     let reverse = Math.floor(Math.random() * 2);
 
-    if (newColor !== color) {first = true} else first = false
+    // if (newColor !== color) {first = true} else first = false
 
     if (reverse) {
       color = 'green';
-      guide -= (randomHeight + newHeight);
+      guide -= randomHeight;
     } else {
       color = 'red';
     }
+    
+    context.fillStyle = color;
+    context.fillRect( i , 20, 10, guide);
 
-    console.log(guide);
-
-    document.querySelector('#chart-container').innerHTML += `
-      <div class="candle" 
-      onclick="alert('This is a ' + this.style.backgroundColor + ' candle.')" 
-      style="background-color:${color};
-      top: ${guide}px;
-      height:${randomHeight}px; 
-      left:${left}px">
-    `;
-
-    left += 11;
     newHeight = randomHeight;
-    newColor = color;
   }
+  context.stroke(); 
+
 }
 
-document.querySelector('#new-chart').addEventListener('click', createChart);
+document.querySelector('#createGraph').addEventListener('click', createGraph)
