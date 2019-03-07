@@ -1,0 +1,6 @@
+.candle {
+    background-color: red;
+    height : 500px;
+    width : 10px;
+    position: relative;
+}
